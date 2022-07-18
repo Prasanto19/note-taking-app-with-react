@@ -7,6 +7,8 @@ import './App.css';
 function App() {
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState('');
+  const [editableNote, setEditableNote] = useState(null);
+  const [editMode, setEditMode] = useState(false);
   const noteCreateHandler = event => {
     event.preventDefault();
     if (title) {
@@ -21,6 +23,27 @@ function App() {
       alert('You can not enter empty string');
     }
   };
+
+  const noteDeleteHandler = noteId => {
+    setNotes(notes.filter(note => note.id !== noteId));
+  };
+
+  const editHandler = noteId => {
+    const toBeEditedNote = notes.find(note => note.id === noteId);
+    setEditMode(true);
+    setEditableNote(toBeEditedNote);
+    setTitle(toBeEditedNote.title);
+  };
+  const updateHandler = event => {
+    event.preventDefault();
+    const newNotes = notes.map(note => {
+      if (note.id === editableNote.id) note.title = title;
+      return note;
+    });
+    setNotes(newNotes);
+    setEditMode(false);
+    setTitle('');
+  };
   /*
    note = {
       id:Date.now(),
@@ -30,7 +53,11 @@ function App() {
    */
   return (
     <div className="App">
-      <form onSubmit={noteCreateHandler}>
+      <form
+        onSubmit={event =>
+          editMode ? updateHandler(event) : noteCreateHandler(event)
+        }
+      >
         <input
           onChange={event => setTitle(event.target.value)}
           type="text"
@@ -39,14 +66,14 @@ function App() {
           id=""
           placeholder="Write your note here"
         />
-        <button type="submit">Add note</button>
+        <button type="submit">{editMode ? 'Update Note' : 'Add note'}</button>
       </form>
       <ul>
         {notes.map(note => (
           <li>
             <span>{note.title} </span>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button onClick={() => editHandler(note.id)}>Edit</button>
+            <button onClick={() => noteDeleteHandler(note.id)}>Delete</button>
           </li>
         ))}
       </ul>

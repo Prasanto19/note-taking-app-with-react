@@ -29,6 +29,7 @@ function App() {
       setTitle('');
       setIsComplete(false);
     } else {
+      setTitle('');
       var msg = 'Sorry! Your note is Empty!';
       msg += '\n';
       msg += 'Please Check again! ';
@@ -62,6 +63,7 @@ function App() {
       setTitle('');
       setIsComplete(false);
     } else {
+      setTitle('');
       var msg = 'Sorry! Your note is Empty!';
       msg += '\n';
       msg += 'Please Check again! ';

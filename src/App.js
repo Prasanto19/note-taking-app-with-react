@@ -5,6 +5,13 @@ import { useState } from 'react';
 import './App.css';
 
 function App() {
+  /*
+   note = {
+      id:Date.now(),
+      title: 'title-1',
+      isComplete:false,
+   }
+   */
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState('');
   const [editableNote, setEditableNote] = useState(null);
@@ -36,21 +43,19 @@ function App() {
   };
   const updateHandler = event => {
     event.preventDefault();
-    const newNotes = notes.map(note => {
-      if (note.id === editableNote.id) note.title = title;
-      return note;
-    });
-    setNotes(newNotes);
-    setEditMode(false);
-    setTitle('');
+    if (title) {
+      const newNotes = notes.map(note => {
+        if (note.id === editableNote.id) note.title = title;
+        return note;
+      });
+      setNotes(newNotes);
+      setEditMode(false);
+      setTitle('');
+    } else {
+      alert('You can not enter empty string');
+    }
   };
-  /*
-   note = {
-      id:Date.now(),
-      title: 'title-1',
-      isComplete:false,
-   }
-   */
+
   return (
     <div className="App">
       <form

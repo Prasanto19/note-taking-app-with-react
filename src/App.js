@@ -14,6 +14,7 @@ function App() {
    */
   const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
   const [editableNote, setEditableNote] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const noteCreateHandler = event => {
@@ -22,10 +23,11 @@ function App() {
       const newNote = {
         id: Date.now(),
         title: title,
-        isComplete: false,
+        isComplete: true,
       };
       setNotes([newNote, ...notes]);
       setTitle('');
+      setIsComplete(false);
     } else {
       alert('You can not enter empty string');
     }
@@ -37,6 +39,7 @@ function App() {
 
   const editHandler = noteId => {
     const toBeEditedNote = notes.find(note => note.id === noteId);
+    setIsComplete((toBeEditedNote.isComplete = false));
     setEditMode(true);
     setEditableNote(toBeEditedNote);
     setTitle(toBeEditedNote.title);
@@ -45,43 +48,64 @@ function App() {
     event.preventDefault();
     if (title) {
       const newNotes = notes.map(note => {
-        if (note.id === editableNote.id) note.title = title;
+        if (note.id === editableNote.id) {
+          note.title = title;
+          note.isComplete = true;
+        }
         return note;
       });
       setNotes(newNotes);
       setEditMode(false);
       setTitle('');
+      setIsComplete(false);
     } else {
       alert('You can not enter empty string');
     }
   };
 
   return (
-    <div className="App">
-      <form
-        onSubmit={event =>
-          editMode ? updateHandler(event) : noteCreateHandler(event)
-        }
-      >
-        <input
-          onChange={event => setTitle(event.target.value)}
-          type="text"
-          value={title}
-          name=""
-          id=""
-          placeholder="Write your note here"
-        />
-        <button type="submit">{editMode ? 'Update Note' : 'Add note'}</button>
-      </form>
-      <ul>
-        {notes.map(note => (
-          <li>
-            <span>{note.title} </span>
-            <button onClick={() => editHandler(note.id)}>Edit</button>
-            <button onClick={() => noteDeleteHandler(note.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+    <div className="app">
+      <div className="note-form">
+        <form
+          onSubmit={event =>
+            editMode ? updateHandler(event) : noteCreateHandler(event)
+          }
+        >
+          <input
+            onChange={event => setTitle(event.target.value)}
+            type="text"
+            value={title}
+            name=""
+            id=""
+            placeholder="Write your note here"
+          />
+          <button type="submit">{editMode ? 'Update Note' : 'Add note'}</button>
+        </form>
+      </div>
+
+      {notes.map(note => (
+        <div
+          className="note"
+          style={
+            note.isComplete
+              ? { backgroundColor: 'lightgreen' }
+              : { backgroundColor: 'lightgray' }
+          }
+        >
+          <div className="btn-container">
+            <p>{note.title} </p>
+            <button onClick={() => editHandler(note.id)} className="edit">
+              Edit
+            </button>
+            <button
+              onClick={() => noteDeleteHandler(note.id)}
+              className="delete"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

@@ -19,7 +19,7 @@ function App() {
   const [editMode, setEditMode] = useState(false);
   const noteCreateHandler = event => {
     event.preventDefault();
-    if (title) {
+    if (title.trim()) {
       const newNote = {
         id: Date.now(),
         title: title,
@@ -29,7 +29,10 @@ function App() {
       setTitle('');
       setIsComplete(false);
     } else {
-      alert('You can not enter empty string');
+      var msg = 'Sorry! Your note is Empty!';
+      msg += '\n';
+      msg += 'Please Check again! ';
+      alert(msg);
     }
   };
 
@@ -46,7 +49,7 @@ function App() {
   };
   const updateHandler = event => {
     event.preventDefault();
-    if (title) {
+    if (title.trim()) {
       const newNotes = notes.map(note => {
         if (note.id === editableNote.id) {
           note.title = title;
@@ -59,7 +62,10 @@ function App() {
       setTitle('');
       setIsComplete(false);
     } else {
-      alert('You can not enter empty string');
+      var msg = 'Sorry! Your note is Empty!';
+      msg += '\n';
+      msg += 'Please Check again! ';
+      alert(msg);
     }
   };
 

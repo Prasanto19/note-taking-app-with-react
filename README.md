@@ -22,7 +22,6 @@
 <h2  id="header" align="center" >
   <a target = "_blank"  href="https://note-taking-app-with-react.netlify.app" >Prashanta | Note Taking App</a>
 </h2>
-<hr>
 <br>
 
 ## Built With

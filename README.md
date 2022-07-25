@@ -36,8 +36,6 @@ This app was built using these technologies.
 
 ## Features
 
--Full CRUD operation
-
 - Full CRUD Operation
 - Call back function
 - Spreading

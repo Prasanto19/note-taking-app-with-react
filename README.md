@@ -36,11 +36,16 @@ This app was built using these technologies.
 
 ## Features
 
-- Make small components of every part of a page
-- Functional Component
+-Full CRUD operation
+
+- Full CRUD Operation
+- Call back function
+- Spreading
 - Props rendering
 - Arrow functions
 - State management using hook
+- Make small components of every part of a page
+- Functional Component
 - Manage code with version control(git)
 - Integrate eslint with prettier for beautiful code formatting
 - Use yarn instead of npm

@@ -55,4 +55,4 @@ This app was built using these technologies.
   
 ## Show your support
   
-Give a me ⭐ if you like this app!
+Give me a ⭐ if you like this app!
